@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="header">
+        <span class="logo">Bookmarks</span>
+        {% if request.user.is_authenticated %}
+        <ul class="">
+            <li {% if section == "dashboard" %}  class="selected" {% endif %}> 
+                <a href= "{% url 'dashboard' %}"> My dashboard </a>
+            </li>
+            <li {% if section == "images" %} class="" {% endif %}>
+                <a href="#">Images</a>
+            </li>
+            <li {% if section == "people" %} class="" {% endif %}>
+                <a href="#">People</a>
+            </li>
+        </ul>
+        {% endif %}
+
+        <span class="">
+        {% if request.user.is_authenticated %}
+        <p>Hello {{ user.first_name|default:user.username }}</p>
+        <!-- <img src="{{user.photo}}" alt=""> -->
+        
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit"> Logout </button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        </span>
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li class="{{message.tags}}">
+                {{ message|safe }}
+                <a href="#" class="close">x</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <div> 
+           {% block content %} 
+           {% endblock %} 
+       </div>
+</body>
+</html>

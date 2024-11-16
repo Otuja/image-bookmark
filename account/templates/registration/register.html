@@ -1,0 +1,44 @@
+<title>{% block title %} create an account {% endblock%}</title>
+{% block content %}
+
+    <h1>Create an account </h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        <!-- {{user_form.as_p}} -->
+        <div>
+            <label for="">Username</label>
+            {{user_form.username}}
+        </div>
+        <div>
+            <label for="">First Name</label>
+            {{user_form.first_name}}
+        </div>
+        <div>
+            <label for="">Last Name</label>
+            {{user_form.last_name}}
+        </div>
+        <div>
+            <label for="">Email</label>
+            {{user_form.email}}
+        </div>
+        <div>
+            <label for="">Password</label>
+            {{user_form.password}}
+        </div>
+        <div>
+            <label for="">Repeat Password</label>
+            {{user_form.password2}}
+        </div>
+
+        {% if user_form.errors or user_form.non_field_errors %}
+            <div>
+                {% for field in user_form %}
+                    {{ field.errors}}
+                {% endfor %}
+
+                {{ user_form.non_field_errors }}
+            </div>
+        {% endif %}
+        <button>Create my Account</button>
+    </form>
+{% endblock %}

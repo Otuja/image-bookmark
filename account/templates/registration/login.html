@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Login{% endblock %}</title>
+  </head>
+  <body>
+    {% block content %}
+
+    <h1>Login</h1>
+
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="">Username</label>
+        {{form.username}}
+      </div>
+      <div>
+        <label for="">Password</label>
+        {{form.password}}
+      </div>
+
+      {% if form.errors or form.non_field_errors %}
+      <div>
+        {% for field in form %} {{ field.errors}} {% endfor %} {{
+        form.non_field_errors }}
+      </div>
+      {% endif %}
+
+      <input type="hidden" name="next" value="{{ next }}" />
+      <input type="submit" value="Login" />
+    </form>
+    <a href="{% url 'password_reset'%}">Forgotten your password</a>
+    <p><a href="{% url 'register' %}">Already have an account?</a></p>
+
+    <div class="social">
+      <ul>
+        <li class="">
+          <a href="{% url 'social:begin' 'google-oauth2' %}">
+            Sign in with Google
+          </a>
+        </li>
+      </ul>
+    </div>
+    {% endblock %}
+  </body>
+</html>
