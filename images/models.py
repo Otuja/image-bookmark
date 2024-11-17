@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 from django.utils.text import slugify
 
@@ -24,7 +25,7 @@ class Image(models.Model):
         blank = True
     )
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse('images:detail', args=[self.id, self.slug])
 
     def save(self, *args, **kwargs):
@@ -38,5 +39,5 @@ class Image(models.Model):
         ]
         ordering = ['-created']
 
-    def __str__(self):
-        return self.title
+        def __str__(self):
+            return self.title

@@ -149,8 +149,8 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = os.getenv('HOST_USER')  # Your email
 EMAIL_HOST_PASSWORD = os.getenv('HOST_PASSWORD')  # Your Gmail app password (or regular password)
 
-MEDIA_URL ='media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
