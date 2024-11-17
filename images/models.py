@@ -24,6 +24,8 @@ class Image(models.Model):
         blank = True
     )
 
+    def get_absolut_url(self):
+        return reverse('images:detail', args=[self.id, self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -36,5 +38,5 @@ class Image(models.Model):
         ]
         ordering = ['-created']
 
-        def __str__(self):
-            return self.title
+    def __str__(self):
+        return self.title
