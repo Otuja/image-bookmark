@@ -19,4 +19,35 @@ boxHtml = `
         <h1> Select an image to bookmark: </h1>
     </div>
 `;
-body.innerHtml += boxHtml;
+body.insertAdjacentElement('afterend', boxHtml);
+// body.innerHtml += boxHtml;
+
+
+function bookmarkletLaunch() {
+    bookmarklet = document.querySelector('div#bookmarklet');
+    var imagesFound = bookmarklet.querySelector('.images');
+
+    // clear images found
+    imagesFound.innerHtml = '';
+
+    // display bookmarklet
+    bookmarklet.style.display = 'block';
+
+    // close
+    bookmarklet.querySelector('#close').addEventListener('click', function () {
+        bookmarklet.style.display = 'none'
+    });
+}
+
+
+//find image in the dom with minimum dimensions
+images = document.querySelectorAll('img[src$=".jpg"], img[src$=".jpeg"], img[src$=".png"]');
+images.forEach(image => {
+    if (image.naturalWidth >= minWidth && image.naturalHeight >= minHeight) {
+        var imageFound = document.createElement('img');
+        imageFound.src = image.src;
+        imagesFound.append(imageFound);
+    }
+})
+// launch the bookmarklet
+bookmarkletLaunch();
