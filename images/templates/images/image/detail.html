@@ -1,9 +1,23 @@
-{% extends 'base.html' %}
-<title>{% block title %} {{ image.title }} {% endblock %}</title>
+{% load static%}
+{% load thumbnail %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {{ image.title }} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    
 {% block content %}
     <h1>{{ image.title }}</h1>
-    <img src="{{image.image.url}}" alt="" srcset="" class="image-detail">
+
+    <a href="{{ image.image.url }}">
+        <img src="{% thumbnail image.image 300x0 %}" class="image-detail">
+    </a>
+
     {% with total_likes=image.users_like.count %}
         <div class="image-info">
             <div>
@@ -28,3 +42,5 @@
         </div>
     {% endwith %}
 {% endblock%}
+</body>
+</html>
